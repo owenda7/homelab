@@ -17,17 +17,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${HOMELAB_DATA_ROOT}/portainer:/data
 
-  prometheus:
-    volumes:
-      - ${HOMELAB_DATA_ROOT}/config/monitoring/prometheus:/etc/prometheus:ro
-      - ${HOMELAB_DATA_ROOT}/prometheus:/prometheus
-    user: "65534:65534"  # nobody user for security
-
-  grafana:
-    volumes:
-      - ${HOMELAB_DATA_ROOT}/grafana:/var/lib/grafana
-      - ${HOMELAB_DATA_ROOT}/config/monitoring/grafana:/etc/grafana/provisioning:ro
-    user: "472:472"  # grafana user
 
   watchtower:
     volumes:

@@ -28,29 +28,6 @@ services:
         reservations:
           memory: 128M
 
-  prometheus:
-    volumes:
-      - ./config/monitoring/prometheus:/etc/prometheus:ro
-      - prometheus-data:/prometheus
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-        reservations:
-          memory: 512M
-
-  grafana:
-    volumes:
-      - grafana-data:/var/lib/grafana
-      - ./config/monitoring/grafana:/etc/grafana/provisioning:ro
-    ports:
-      - "3000:3000"
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-        reservations:
-          memory: 256M
 
   watchtower:
     deploy:
@@ -81,3 +58,16 @@ services:
           memory: 1G
         reservations:
           memory: 512M
+
+  # Pi-hole - macOS optimizations
+  pihole:
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8081:80"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M

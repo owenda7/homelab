@@ -47,7 +47,7 @@
 
 3. **Create data directories**:
    ```bash
-   mkdir -p ~/homelab-data/{traefik,portainer,prometheus,grafana,config}
+   mkdir -p ~/homelab-data/{traefik,portainer,nextcloud,pihole,config}
    ```
 
 4. **Start services**:
@@ -79,8 +79,8 @@ Add to `C:\Windows\System32\drivers\etc\hosts`:
 ```
 127.0.0.1 traefik.homelab.local
 127.0.0.1 portainer.homelab.local
-127.0.0.1 grafana.homelab.local
-127.0.0.1 prometheus.homelab.local
+127.0.0.1 nextcloud.homelab.local
+127.0.0.1 pihole.homelab.local
 ```
 
 ### From WSL2

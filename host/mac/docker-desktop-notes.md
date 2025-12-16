@@ -34,8 +34,8 @@ Docker Desktop automatically shares `/Users`, `/Volumes`, `/private`, and `/tmp`
   ```
   127.0.0.1 traefik.homelab.local
   127.0.0.1 portainer.homelab.local
-  127.0.0.1 grafana.homelab.local
-  127.0.0.1 prometheus.homelab.local
+  127.0.0.1 nextcloud.homelab.local
+  127.0.0.1 pihole.homelab.local
   ```
 
 ## Data Persistence
@@ -43,8 +43,8 @@ Docker Desktop automatically shares `/Users`, `/Volumes`, `/private`, and `/tmp`
 Data is stored in Docker named volumes:
 - `traefik-data`: SSL certificates and Traefik data
 - `portainer-data`: Portainer configuration
-- `prometheus-data`: Metrics data
-- `grafana-data`: Dashboards and settings
+- `nextcloud-data`: Nextcloud files and data
+- `pihole-data`: Pi-hole configuration and blocklists
 
 To backup data:
 ```bash

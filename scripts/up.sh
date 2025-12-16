@@ -108,11 +108,10 @@ main() {
         print_status "Homelab stack started successfully!"
         print_status ""
         print_status "Services available at:"
-        source .env
         print_status "  Traefik Dashboard: http://traefik.${HOMELAB_DOMAIN}"
         print_status "  Portainer:         http://portainer.${HOMELAB_DOMAIN}"
-        print_status "  Grafana:           http://grafana.${HOMELAB_DOMAIN}"
-        print_status "  Prometheus:        http://prometheus.${HOMELAB_DOMAIN}"
+        print_status "  Nextcloud:         http://nextcloud.${HOMELAB_DOMAIN}"
+        print_status "  Pi-hole:           http://pihole.${HOMELAB_DOMAIN}"
         print_status ""
         print_status "View logs with: ./scripts/logs.sh"
         print_status "Stop services with: ./scripts/down.sh"

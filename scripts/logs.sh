@@ -55,9 +55,17 @@ main() {
     if [[ -n "$service" ]]; then
         print_status "Showing logs for service: $service"
         if [[ "$follow" == "true" ]]; then
-            docker compose $compose_files logs -f "$service"
+            if [[ "$service" == "pihole" ]]; then
+                docker logs -f pihole
+            else
+                docker compose $compose_files logs -f "$service"
+            fi
         else
-            docker compose $compose_files logs "$service"
+            if [[ "$service" == "pihole" ]]; then
+                docker logs pihole
+            else
+                docker compose $compose_files logs "$service"
+            fi
         fi
     else
         print_status "Showing logs for all services"

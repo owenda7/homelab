@@ -22,24 +22,6 @@ services:
       - 8.8.8.8
       - 1.1.1.1
 
-  prometheus:
-    volumes:
-      - ${HOMELAB_DATA_ROOT}/config/monitoring/prometheus:/etc/prometheus:ro
-      - ${HOMELAB_DATA_ROOT}/prometheus:/prometheus
-    user: "65534:65534"
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
-
-  grafana:
-    volumes:
-      - ${HOMELAB_DATA_ROOT}/grafana:/var/lib/grafana
-      - ${HOMELAB_DATA_ROOT}/config/monitoring/grafana:/etc/grafana/provisioning:ro
-    user: "472:472"
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
-
   watchtower:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
