@@ -1,0 +1,71 @@
+version: '3.8'
+
+# WSL2-specific overrides for Windows Subsystem for Linux
+services:
+  traefik:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${HOMELAB_DATA_ROOT}/traefik:/data
+      - ${HOMELAB_DATA_ROOT}/config/traefik:/etc/traefik/dynamic:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    # WSL2 DNS resolution fixes
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+  portainer:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${HOMELAB_DATA_ROOT}/portainer:/data
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+  prometheus:
+    volumes:
+      - ${HOMELAB_DATA_ROOT}/config/monitoring/prometheus:/etc/prometheus:ro
+      - ${HOMELAB_DATA_ROOT}/prometheus:/prometheus
+    user: "65534:65534"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+  grafana:
+    volumes:
+      - ${HOMELAB_DATA_ROOT}/grafana:/var/lib/grafana
+      - ${HOMELAB_DATA_ROOT}/config/monitoring/grafana:/etc/grafana/provisioning:ro
+    user: "472:472"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+  watchtower:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    environment:
+      - TZ=${TZ:-UTC}
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 0 4 * * *
+      # WSL2 time sync considerations
+      - WATCHTOWER_POLL_INTERVAL=300
+
+  nextcloud-db:
+    volumes:
+      - ${HOMELAB_DATA_ROOT}/nextcloud-db:/var/lib/mysql
+    user: "999:999"  # mysql user
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+  nextcloud:
+    volumes:
+      - ${HOMELAB_DATA_ROOT}/nextcloud:/var/www/html
+      - ${HOMELAB_DATA_ROOT}/config/nextcloud:/var/www/html/config:ro
+    user: "33:33"  # www-data user
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
