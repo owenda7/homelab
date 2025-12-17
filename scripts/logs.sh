@@ -31,8 +31,6 @@ print_error() {
 detect_environment() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         echo "mac"
-    elif [[ -f /proc/version ]] && grep -q Microsoft /proc/version; then
-        echo "wsl2"
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo "ubuntu"
     else
@@ -55,17 +53,9 @@ main() {
     if [[ -n "$service" ]]; then
         print_status "Showing logs for service: $service"
         if [[ "$follow" == "true" ]]; then
-            if [[ "$service" == "pihole" ]]; then
-                docker logs -f pihole
-            else
-                docker compose $compose_files logs -f "$service"
-            fi
+            docker compose $compose_files logs -f "$service"
         else
-            if [[ "$service" == "pihole" ]]; then
-                docker logs pihole
-            else
-                docker compose $compose_files logs "$service"
-            fi
+            docker compose $compose_files logs "$service"
         fi
     else
         print_status "Showing logs for all services"
@@ -83,7 +73,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
     echo ""
     echo "Arguments:"
     echo "  service      Service name to show logs for (optional, shows all if not specified)"
-    echo "  environment  Target environment (mac|ubuntu|wsl2). Auto-detected if not specified."
+    echo "  environment  Target environment (mac|ubuntu). Auto-detected if not specified."
     echo "  --no-follow  Don't follow logs (show existing logs and exit)"
     echo ""
     echo "Available services:"
@@ -107,7 +97,7 @@ for arg in "$@"; do
         --no-follow)
             follow="false"
             ;;
-        mac|ubuntu|wsl2)
+        mac|ubuntu)
             env="$arg"
             ;;
         *)

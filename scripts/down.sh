@@ -31,8 +31,6 @@ print_error() {
 detect_environment() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         echo "mac"
-    elif [[ -f /proc/version ]] && grep -q Microsoft /proc/version; then
-        echo "wsl2"
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo "ubuntu"
     else
@@ -49,11 +47,11 @@ main() {
     
     # Validate environment
     case $env in
-        mac|ubuntu|wsl2)
+        mac|ubuntu)
             ;;
         *)
             print_error "Unknown environment: $env"
-            print_status "Usage: $0 [mac|ubuntu|wsl2] [--remove-volumes]"
+            print_status "Usage: $0 [mac|ubuntu] [--remove-volumes]"
             exit 1
             ;;
     esac
@@ -86,7 +84,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
     echo "Usage: $0 [environment] [--remove-volumes]"
     echo ""
     echo "Arguments:"
-    echo "  environment      Target environment (mac|ubuntu|wsl2). Auto-detected if not specified."
+    echo "  environment      Target environment (mac|ubuntu). Auto-detected if not specified."
     echo "  --remove-volumes Remove Docker volumes (WARNING: This will delete all data!)"
     echo ""
     echo "Examples:"

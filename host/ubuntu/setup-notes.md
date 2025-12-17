@@ -44,11 +44,10 @@
 2. **Directory permissions**:
    ```bash
    # Create data directories
-   mkdir -p /srv/homelab/{traefik,portainer,nextcloud,pihole}
+   mkdir -p /srv/homelab/{traefik,portainer,nextcloud}
    
    # Set proper ownership for service users
    sudo chown -R 33:33 /srv/homelab/nextcloud     # www-data user
-   sudo chown -R 999:999 /srv/homelab/pihole      # pihole user
    ```
 
 ## Systemd Service (Optional)
@@ -81,7 +80,6 @@ To start homelab automatically on boot:
   <server-ip> traefik.homelab.local
   <server-ip> portainer.homelab.local
   <server-ip> nextcloud.homelab.local
-  <server-ip> pihole.homelab.local
   ```
 
 ### External Access
@@ -125,7 +123,6 @@ mkdir -p "$BACKUP_DIR"
 # Backup volumes
 docker run --rm -v traefik-data:/data -v "$BACKUP_DIR":/backup alpine tar czf /backup/traefik.tar.gz -C /data .
 docker run --rm -v nextcloud-data:/data -v "$BACKUP_DIR":/backup alpine tar czf /backup/nextcloud.tar.gz -C /data .
-docker run --rm -v pihole-data:/data -v "$BACKUP_DIR":/backup alpine tar czf /backup/pihole.tar.gz -C /data .
 
 # Backup configs
 cp -r /srv/homelab/config "$BACKUP_DIR/"

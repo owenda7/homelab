@@ -1,6 +1,6 @@
 # Homelab Docker Configuration
 
-A portable Docker Compose setup for homelab services, designed to work across Ubuntu/WSL2 (production) and macOS (development/testing).
+A portable Docker Compose setup for homelab services, designed to work across Ubuntu (production) and macOS (development/testing).
 
 ## Quick Start
 
@@ -22,14 +22,12 @@ A portable Docker Compose setup for homelab services, designed to work across Ub
    # Or specify explicitly
    ./scripts/up.sh mac
    ./scripts/up.sh ubuntu
-   ./scripts/up.sh wsl2
    ```
 
 4. **Access services:**
    - Traefik Dashboard: `http://traefik.${HOMELAB_DOMAIN}`
    - Portainer: `http://portainer.${HOMELAB_DOMAIN}` - Container management UI
    - **Nextcloud: `http://nextcloud.${HOMELAB_DOMAIN}` - Personal cloud storage**
-   - Pi-hole: `http://pihole.${HOMELAB_DOMAIN}` - DNS & Ad blocking
 
 ## Nextcloud - Personal Cloud Storage
 
@@ -72,32 +70,12 @@ Portainer provides a comprehensive web UI for Docker management:
 
 Access Portainer at `http://portainer.${HOMELAB_DOMAIN}` after starting the stack.
 
-## Pi-hole - DNS & Ad Blocking
-
-Pi-hole provides network-wide DNS filtering and ad blocking:
-
-- **DNS Server**: Local DNS resolution for homelab services
-- **Ad Blocking**: Block ads, trackers, and malicious domains network-wide
-- **Custom DNS Records**: Create local domain names for your services
-- **Query Logging**: Monitor DNS requests and blocked queries
-- **Whitelist/Blacklist**: Fine-tune blocking with custom lists
-- **DHCP Server**: Optional DHCP functionality for network management
-- **Statistics Dashboard**: Real-time metrics and historical data
-- **Mobile Friendly**: Responsive web interface for mobile management
-
-### Setup
-1. Access Pi-hole at `http://pihole.${HOMELAB_DOMAIN}` or `http://localhost:8081`
-2. Login with admin password from your `.env` file
-3. Configure your router or devices to use Pi-hole as DNS server
-4. Add custom local DNS records for your homelab services
-
 ## Architecture
 
 ### Core Services
 - **Traefik**: Reverse proxy with automatic SSL
 - **Nextcloud**: Personal cloud storage and file synchronization
 - **Portainer**: Docker management UI
-- **Pi-hole**: DNS server and ad blocking
 - **Watchtower**: Automatic container updates
 
 ### Directory Structure
@@ -113,7 +91,7 @@ host/             # Host-specific docs and configs
 
 ## Environment Support
 
-### Ubuntu/WSL2 (Production)
+### Ubuntu (Production)
 - Data stored in `/srv/homelab/`
 - Systemd service for auto-start
 - Host networking for some services

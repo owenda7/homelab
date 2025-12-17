@@ -32,8 +32,6 @@ print_error() {
 detect_environment() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         echo "mac"
-    elif [[ -f /proc/version ]] && grep -q Microsoft /proc/version; then
-        echo "wsl2"
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo "ubuntu"
     else
@@ -80,11 +78,11 @@ main() {
     
     # Validate environment
     case $env in
-        mac|ubuntu|wsl2)
+        mac|ubuntu)
             ;;
         *)
             print_error "Unknown environment: $env"
-            print_status "Usage: $0 [mac|ubuntu|wsl2]"
+            print_status "Usage: $0 [mac|ubuntu]"
             exit 1
             ;;
     esac
@@ -111,7 +109,6 @@ main() {
         print_status "  Traefik Dashboard: http://traefik.${HOMELAB_DOMAIN}"
         print_status "  Portainer:         http://portainer.${HOMELAB_DOMAIN}"
         print_status "  Nextcloud:         http://nextcloud.${HOMELAB_DOMAIN}"
-        print_status "  Pi-hole:           http://pihole.${HOMELAB_DOMAIN}"
         print_status ""
         print_status "View logs with: ./scripts/logs.sh"
         print_status "Stop services with: ./scripts/down.sh"
